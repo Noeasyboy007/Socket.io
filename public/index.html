@@ -5,15 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styling */
+        #messages {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Chatting</h1>
+    <div class="container">
+        <h1 class="mt-4">Chat App</h1>
 
-    <input type="text" id="message" placeholder="Enter Message">
-    <button id="sendBtn">Send</button>
+        <div class="input-group mt-4">
+            <input type="text" id="message" class="form-control" placeholder="Enter Message">
+            <div class="input-group-append">
+                <button id="sendBtn" class="btn btn-primary">Send</button>
+            </div>
+        </div>
 
-    <div id="messages"></div>
+        <div id="messages" class="mt-4"></div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
 
@@ -27,13 +41,13 @@
             const p = document.createElement('p');
             p.innerText = message;
             allMessages.appendChild(p);
-            
         });
 
         sendBtn.addEventListener('click', e => {
             const message = messageInput.value;
             console.log(message);
             socket.emit('user-message', message);
+            messageInput.value = ''; // Clear input after sending
         })
     </script>
 </body>
